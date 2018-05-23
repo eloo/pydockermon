@@ -22,12 +22,12 @@ exclude = ['MyFirstContainer', 'MySecondContainer'] #Optional
 
 containers = dm.listContainers(host)
 print(containers) #Returns a list of all containers with state, or False if it fails.
-containerstate = dm.getContainerState('MyContainer', host)
+containerstate = dm.getContainerState('MyContainer', host, port)
 print(containerstate) #Returns the container state, or False if it fails.
-containerstats = dm.getContainerStats('MyContainer', host)
+containerstats = dm.getContainerStats('MyContainer', host, port)
 print(containerstats) #Returns stats about the container, or False if it fails.
-stopcontainer = dm.stopContainer('MyContainer', host)
+stopcontainer = dm.stopContainer('MyContainer', host, port)
 print(stopcontainer) #Returns True/false.
-startcontariner = dm.startContainer('MyContainer', host)
+startcontariner = dm.startContainer('MyContainer', host, port)
 print(startcontariner) #Returns True/False.
 ```
