@@ -21,4 +21,4 @@ push_github:
         - wget -q https://gitlab.com/ludeeus/toolbox/raw/master/CI-Scripts/push_to_public_repo/init.sh
         - wget -q https://gitlab.com/ludeeus/toolbox/raw/master/CI-Scripts/push_to_public_repo/push.sh
         - bash init.sh github pip-packages "" /pydockermon
-        - bash push.sh Europe/Oslo pydockermon
+        - bash push.sh Europe/Oslo
