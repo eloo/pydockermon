@@ -11,12 +11,12 @@ class Dockermon:
     def __init__(self):
         """Initialize"""
 
-    def listContainers(self, host, port='8126'):
+    def listContainers(self, host, port='8126', username='', password=''):
         """Get a list of all containers not in exclude list."""
         BASE = 'http://' + host + ':' + port
         fetchUrl = BASE + '/containers'
         try:
-            containers = requests.get(fetchUrl)
+            containers = requests.get(fetchUrl, auth=(username, password))
         except:
             return False
         else:
@@ -25,12 +25,12 @@ class Dockermon:
             else:
                 return False
 
-    def getContainerState(self, container, host, port='8126'):
+    def getContainerState(self, container, host, port='8126', username='', password=''):
         """Get the state of a container."""
         BASE = 'http://' + host + ':' + port
         fetchUrl = BASE + '/container/' + container
         try:
-            containerState = requests.get(fetchUrl)
+            containerState = requests.get(fetchUrl, auth=(username, password))
         except:
             return False
         else:
@@ -39,12 +39,12 @@ class Dockermon:
             else:
                 return False
 
-    def getContainerStats(self, container, host, port='8126'):
+    def getContainerStats(self, container, host, port='8126', username='', password=''):
         """Get the state of a container."""
         BASE = 'http://' + host + ':' + port
         fetchUrl = BASE + '/container/' + container + '/stats'
         try:
-            containerStats = requests.get(fetchUrl)
+            containerStats = requests.get(fetchUrl, auth=(username, password))
         except:
             return False
         else:
@@ -53,12 +53,12 @@ class Dockermon:
             else:
                 return False
 
-    def startContainer(self, container, host, port='8126'):
+    def startContainer(self, container, host, port='8126', username='', password=''):
         """Start a spesified container"""
         BASE = 'http://' + host + ':' + port
         commandUrl = BASE + '/container/' + container + '/start'
         try:
-            runCommand = requests.get(commandUrl)
+            runCommand = requests.get(commandUrl, auth=(username, password))
         except:
             return False
         else:
@@ -67,12 +67,12 @@ class Dockermon:
             else:
                 return False
 
-    def stopContainer(self, container, host, port='8126'):
+    def stopContainer(self, container, host, port='8126', username='', password=''):
         """Start a spesified container"""
         BASE = 'http://' + host + ':' + port
         commandUrl = BASE + '/container/' + container + '/stop'
         try:
-            runCommand = requests.get(commandUrl)
+            runCommand = requests.get(commandUrl, auth=(username, password))
         except:
             return False
         else:
