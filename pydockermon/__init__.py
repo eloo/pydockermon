@@ -41,7 +41,7 @@ def list_containers(host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
@@ -66,7 +66,7 @@ def get_container_state(container, host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
@@ -91,7 +91,7 @@ def get_container_stats(container, host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
@@ -122,7 +122,7 @@ def start_container(container, host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
@@ -153,7 +153,7 @@ def stop_container(container, host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
@@ -184,7 +184,7 @@ def restart_container(container, host, port='8126',
         logger(exception, 40)
     try:
         logger(return_value)
-    except UnboundLocalError:
+    except UnboundLocalError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
     return return_value
