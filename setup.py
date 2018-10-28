@@ -1,13 +1,16 @@
+"""Setup configuration."""
 import setuptools
+
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    LONG = fh.read()
 setuptools.setup(
     name="pydockermon",
-    version="0.0.2",
+    version="0.1.0",
     author="Joakim Sorensen",
-    author_email="joasoe@gmail.com",
+    author_email="ludeeus@gmail.com",
     description="A python module to interact with ha-dockermon.",
-    long_description=long_description,
+    long_description=LONG,
+    install_requires=['logging', 'requests'],
     long_description_content_type="text/markdown",
     url="https://gitlab.com/ludeeus/pydockermon",
     packages=setuptools.find_packages(),

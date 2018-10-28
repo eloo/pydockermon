@@ -1,82 +1,166 @@
 """
 A python module to interact with ha-dockermon.
+
 This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
+import logging
+import json
 import requests
 
-class Dockermon:
-    """This class is used to interact with ha-dockermon."""
+HEADERS = {'content-type': 'application/octet-stream'}
 
-    def __init__(self):
-        """Initialize"""
 
-    def listContainers(self, host, port='8126', username='', password=''):
-        """Get a list of all containers not in exclude list."""
-        BASE = 'http://' + host + ':' + port
-        fetchUrl = BASE + '/containers'
-        try:
-            containers = requests.get(fetchUrl, auth=(username, password))
-        except:
-            return False
+def logger(message, level=10):
+    """Handle logging in this module."""
+    logging.getLogger(__name__).log(level, str(message))
+
+    # Enable this for local debug:
+    # print('Log level: "' + str(level) + '", message: "' + str(message) + '"')
+
+
+def list_containers(host, port='8126',
+                    username=None, password=None):
+    """Get a list of all containers."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/containers'
+    logger('Fetching a list of all containers.')
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data:
+            containernames = []
+            for container in data.json():
+                containernames.append(container['Names'][0][1:])
+            return_value = {'success': True, 'data': containernames}
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': [None]}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': [None]}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
+
+
+def get_container_state(container, host, port='8126',
+                        username=None, password=None):
+    """Get the state of a container."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/container/' + container
+    logger('Fetching container state for ' + container)
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data:
+            return_value = {'success': True, 'data': data.json()}
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
+
+
+def get_container_stats(container, host, port='8126',
+                        username=None, password=None):
+    """Get the state of a container."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/container/' + container + '/stats'
+    logger('Fetching container stats for ' + container)
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data:
+            return_value = {'success': True, 'data': data.json()}
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
+
+
+def start_container(container, host, port='8126',
+                    username=None, password=None):
+    """Start a spesified container."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/container/' + container + '/start'
+    logger('Starting the container ' + container)
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data.status_code == 200:
+            return_value = {'success': True, 'data': {}}
         else:
-            if containers:
-                return containers.json()
-            else:
-                return False
+            return_value = {'success': False, 'data': {}}
+            logger(data.status_code, 40)
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except AttributeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
 
-    def getContainerState(self, container, host, port='8126', username='', password=''):
-        """Get the state of a container."""
-        BASE = 'http://' + host + ':' + port
-        fetchUrl = BASE + '/container/' + container
-        try:
-            containerState = requests.get(fetchUrl, auth=(username, password))
-        except:
-            return False
-        else:
-            if containerState:
-                return containerState.json()
-            else:
-                return False
 
-    def getContainerStats(self, container, host, port='8126', username='', password=''):
-        """Get the state of a container."""
-        BASE = 'http://' + host + ':' + port
-        fetchUrl = BASE + '/container/' + container + '/stats'
-        try:
-            containerStats = requests.get(fetchUrl, auth=(username, password))
-        except:
-            return False
+def stop_container(container, host, port='8126',
+                   username=None, password=None):
+    """Start a spesified container."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/container/' + container + '/stop'
+    logger('Stopping the container ' + container)
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data.status_code == 200:
+            return_value = {'success': True, 'data': {}}
         else:
-            if containerStats:
-                return containerStats.json()
-            else:
-                return False
+            return_value = {'success': False, 'data': {}}
+            logger(data.status_code, 40)
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except AttributeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
 
-    def startContainer(self, container, host, port='8126', username='', password=''):
-        """Start a spesified container"""
-        BASE = 'http://' + host + ':' + port
-        commandUrl = BASE + '/container/' + container + '/start'
-        try:
-            runCommand = requests.get(commandUrl, auth=(username, password))
-        except:
-            return False
-        else:
-            if runCommand:
-                return True
-            else:
-                return False
 
-    def stopContainer(self, container, host, port='8126', username='', password=''):
-        """Start a spesified container"""
-        BASE = 'http://' + host + ':' + port
-        commandUrl = BASE + '/container/' + container + '/stop'
-        try:
-            runCommand = requests.get(commandUrl, auth=(username, password))
-        except:
-            return False
+def restart_container(container, host, port='8126',
+                      username=None, password=None):
+    """Start a spesified container."""
+    baseurl = 'http://' + host + ':' + port
+    commandurl = baseurl + '/container/' + container + '/restart'
+    logger('Restarting the container ' + container)
+    try:
+        data = requests.get(commandurl,
+                            auth=(username, password), headers=HEADERS)
+        if data.status_code == 200:
+            return_value = {'success': True, 'data': {}}
         else:
-            if runCommand:
-                return True
-            else:
-                return False
+            return_value = {'success': False, 'data': {}}
+            logger(data.status_code, 40)
+    except requests.exceptions.RequestException as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except json.decoder.JSONDecodeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    except AttributeError as exception:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
+    logger(return_value)
+    return return_value
