@@ -5,14 +5,14 @@ with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
     name="pydockermon",
-    version="0.1.0",
+    version="0.1.1",
     author="Joakim Sorensen",
     author_email="ludeeus@gmail.com",
     description="A python module to interact with ha-dockermon.",
     long_description=LONG,
-    install_requires=['logging', 'requests'],
+    install_requires=['requests'],
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/ludeeus/pydockermon",
+    url="https://github.com/ludeeus/pydockermon",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3",
