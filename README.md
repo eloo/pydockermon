@@ -1,4 +1,4 @@
-# pydockermon [![Build Status](https://travis-ci.com/ludeeus/pydockermon.svg?branch=master)](https://travis-ci.com/ludeeus/pydockermon) [![PyPI version](https://badge.fury.io/py/pyupdate.svg)](https://badge.fury.io/py/pyupdate)
+# pydockermon [![Build Status](https://travis-ci.com/ludeeus/pydockermon.svg?branch=master)](https://travis-ci.com/ludeeus/pydockermon) [![PyPI version](https://badge.fury.io/py/pydockermon.svg)](https://badge.fury.io/py/pydockermon)
 
 _A python module to interact with ha-dockermon._
 
