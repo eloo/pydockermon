@@ -39,7 +39,11 @@ def list_containers(host, port='8126',
     except json.decoder.JSONDecodeError as exception:
         return_value = {'success': False, 'data': [None]}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
 
 
@@ -60,7 +64,11 @@ def get_container_state(container, host, port='8126',
     except json.decoder.JSONDecodeError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
 
 
@@ -81,7 +89,11 @@ def get_container_stats(container, host, port='8126',
     except json.decoder.JSONDecodeError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
 
 
@@ -108,7 +120,11 @@ def start_container(container, host, port='8126',
     except AttributeError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
 
 
@@ -135,7 +151,11 @@ def stop_container(container, host, port='8126',
     except AttributeError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
 
 
@@ -162,5 +182,9 @@ def restart_container(container, host, port='8126',
     except AttributeError as exception:
         return_value = {'success': False, 'data': {}}
         logger(exception, 40)
-    logger(return_value)
+    try:
+        logger(return_value)
+    except UnboundLocalError:
+        return_value = {'success': False, 'data': {}}
+        logger(exception, 40)
     return return_value
