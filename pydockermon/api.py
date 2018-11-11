@@ -49,7 +49,10 @@ class API(object):
                     response = await self._session.get(url,
                                                        auth=self._auth,
                                                        headers=HEADERS)
-                data = await response.json()
+                try:
+                    data = await response.json()
+                except aiohttp.client_exceptions.ContentTypeError:
+                    data = None
                 api_response = {"success": True,
                                 "status_code": response.status,
                                 "data": data}
