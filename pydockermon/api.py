@@ -19,10 +19,9 @@ LOGGER = logging.getLogger(__name__)
 class API(object):
     """A class for API calls."""
 
-    def __init__(self, loop, session, host, port,
+    def __init__(self, session, host, port,
                  username=None, password=None, ssl=False):
         """Initialize the class."""
-        self._loop = loop
         self._session = session
         self._host = host
         self._port = port
@@ -42,7 +41,7 @@ class API(object):
                          port=self._port, endpoint=endpoint)
         api_response = {}
         try:
-            async with async_timeout.timeout(5, loop=self._loop):
+            async with async_timeout.timeout(5):
                 if self._auth is None:
                     response = await self._session.get(url, headers=HEADERS)
                 else:
